@@ -30,7 +30,7 @@ class Application(TweetManager):
     def turn_gold_into_diamond(self,dataframe:pd.DataFrame):
         df = pd.DataFrame()
         for index in dataframe['id']:
-            print(index)
+            print('Downloading tweet with index:  ',index)
             df = pd.concat([df,self.index_manager.get_tweets_dataframe(index)]).drop_duplicates()
         return df
             

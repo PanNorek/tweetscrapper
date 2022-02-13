@@ -12,7 +12,7 @@ class AuthorizationManager:
     
     def __init__(self,stored_keys_filename:str):
         self.stored_keys_filename = stored_keys_filename
-        with open(stored_keys_filename,'r') as file:
+        with open('../'+stored_keys_filename,'r') as file:
             keys = json.load(file)
             self.bearer_token = keys['Bearer_Token']
             self.api_key = keys['API_Key']

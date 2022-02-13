@@ -30,7 +30,7 @@ class QueryMaker:
         created_at, text, author_id, id,
         '''
         self.max_results = max_results
-        url = self.base_search_url + '%23' + hashtag + f"&expansions=author_id&tweet.fields=created_at&max_results={max_results}"
+        url = self.base_search_url + '%23' + hashtag +"%20lang:pl" +f"&expansions=author_id&tweet.fields=created_at&max_results={max_results}"   
         return url
         # url = f'https://api.twitter.com/2/tweets/search/recent?query={hash}wojna&expansions=author_id&tweet.fields=created_at&max_results=10'
 

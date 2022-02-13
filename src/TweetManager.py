@@ -88,7 +88,8 @@ class IndexTweetManager(TweetManager):
         self.index = index
         self.url = self.query.url_builder_by_tweet_id(self.index)
         response = requests.get(self.url, headers=self.auth)
-        assert response.status_code == 200
+        assert response.status_code == 200,'Status code: ' + str(response.status_code)
+        
         df = pd.json_normalize(response.json()['data'])
         return df
 
