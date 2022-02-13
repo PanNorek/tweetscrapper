@@ -1,9 +1,11 @@
 import requests
-# is:quote
-#This class is used to make queries to the Twitter API
+
+
+#This class is making query urls to the Twitter API
 class QueryMaker:
     base_search_url = 'https://api.twitter.com/2/tweets/search/recent?query='
-    advanced_search_url = 'https://api.twitter.com/2/tweets?'
+    conversation_id_search_url = 'https://api.twitter.com/2/tweets/search/recent?query=conversation_id:'
+    advanced_search_url = 'https://api.twitter.com/2/tweets/'
     max_results: int
     
 
@@ -44,14 +46,28 @@ class QueryMaker:
     def url_builder_by_tweet_id(self, tweet_id:str) -> str:
         ''' Function that returns an url to get tweet info by tweet id
         request to the Twitter API returns a json file with these tweets attributes:
-        
+        - public_metrics(e.g. retweets, likes, replies, quotes, ...)
+        - author_id
+        - author personalities
+        - created_at
+        - conversation_id
         '''
-        url = self.advanced_search_url + f"id={tweet_id}&tweet.fields=created_at&expansions=author_id"
+        url = self.advanced_search_url + tweet_id + "?tweet.fields=created_at,public_metrics,conversation_id&expansions=author_id"
+        return url
+
+    def url_builder_by_conversation_id(self, conversation_id:str,max_results=10) -> str:
+        ''' Function that returns an url to get tweets by conversation id
+        request to the Twitter API returns a json file with these tweets attributes:
+        created_at, text, author_id, id,
+        '''
+        url = self.conversation_id_search_url + conversation_id + '&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id,public_metrics&max_results=' + str(max_results)
         return url
 
     def url_builder_by_tweets_id(self, tweet_ids:list) -> str:
-        ''' Function that returns an url to get tweets info by tweet id
+        ''' Function that returns a list of urls to get tweets info by tweet id
         request to the Twitter API returns a json file with these tweets attributes:
+
+
         Will be supported in the future
         '''
 
