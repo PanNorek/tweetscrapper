@@ -3,6 +3,10 @@ import requests
 
 #This class is making query urls to the Twitter API
 class QueryMaker:
+    """
+    Class useful for building urls to get specified Twitter API response
+    Need future improvements. The urls are not very flexible.
+    """
     base_search_url = 'https://api.twitter.com/2/tweets/search/recent?query='
     conversation_id_search_url = 'https://api.twitter.com/2/tweets/search/recent?query=conversation_id:'
     advanced_search_url = 'https://api.twitter.com/2/tweets/'
@@ -38,6 +42,13 @@ class QueryMaker:
         ''' Function that returns an url to get tweets by account name
         request to the Twitter API returns a json file with these tweets attributes:
         created_at, text, author_id, id,
+
+        Args:
+        account_name (str): Twitter account name.
+        max_results (str): results you want get.
+        Returns:
+        url (str): url to get tweets by account name.
+
         '''
         self.max_results = max_results
         url = self.base_search_url + account_name + f"&expansions=author_id&tweet.fields=created_at&max_results={max_results}"
@@ -51,6 +62,10 @@ class QueryMaker:
         - author personalities
         - created_at
         - conversation_id
+        Args:
+        tweet_id (str): tweet id.
+        Returns:
+        url (str): url to get tweet info by tweet id.
         '''
         url = self.advanced_search_url + tweet_id + "?tweet.fields=created_at,public_metrics,conversation_id&expansions=author_id"
         return url
@@ -59,6 +74,11 @@ class QueryMaker:
         ''' Function that returns an url to get tweets by conversation id
         request to the Twitter API returns a json file with these tweets attributes:
         created_at, text, author_id, id,
+        Args:
+        conversation_id (str): conversation id.
+        max_results (str): results you want get.
+        Returns:
+        url (str): url to get tweets by conversation id.
         '''
         url = self.conversation_id_search_url + conversation_id + '&tweet.fields=in_reply_to_user_id,author_id,created_at,conversation_id,public_metrics&max_results=' + str(max_results)
         return url
@@ -67,6 +87,10 @@ class QueryMaker:
         ''' Function that returns a list of urls to get tweets info by tweet id
         request to the Twitter API returns a json file with these tweets attributes:
 
+        Args:
+        tweet_ids (list): list of tweet ids.
+        Returns:
+        urls (list): list of urls to get tweets info by tweet id.
 
         Will be supported in the future
         '''
