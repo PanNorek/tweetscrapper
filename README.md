@@ -15,6 +15,7 @@ A simple app for collecting tweets from Twitter API by given hashtags or account
 2. Create dev account <a>https://developer.twitter.com/en/portal/petition/essential/basic-info</a>
 3. Create a new app and project.  <a>https://developer.twitter.com/en/portal/dashboard</a>
 4. Copy all the keys from the app and paste them in the <code>api_keys.json</code> file (this version only needs the bearer token)
+You can paste your keys in the <code>your_api_keys_sample.json</code> file and cut off 'your_' and '_sample' from the file name.
 5. Change the <code>main.py</code> file to change the hashtahgs or account names and count.
 6. Run the application using <code>python main.py </code>
 
