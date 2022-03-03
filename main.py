@@ -1,4 +1,5 @@
 from src.app import Application
+from src.TrendLocator import TrendLocator
 import pandas as pd
 import sys
 import datetime
@@ -8,12 +9,14 @@ args = sys.argv[1:]
 
 def main():
     today = datetime.datetime.today()
-    #  hashtags=['wojna', 'Ukrainian','Poland','Usuń','Orlen','Czarnobylu']
 
+    # This object is storing top hashtags from the given country 
+    trends = TrendLocator(country="Poland", top_count=2).get_trends()
 
+    
     # Place where you can specifiy hashtags or account names to search for
     # max_count - number of tweets to be returned per each hashtag/acc name (to be implemented better)
-    ap = Application(max_count=10, hashtags=['wojna'], accounts=['NEXTA', 'YourAnonNews'])
+    ap = Application(max_count=10, hashtags=trends, accounts=['NEXTA', 'YourAnonNews'])
 
 
     # Place where you can choose which category you want to download (or you choose both)
@@ -24,7 +27,7 @@ def main():
     df.drop_duplicates('text', inplace=True)
     print("Saving to " + f"/src/data/{str(today.date())}-{str(today.hour)}-tweets.csv" )
     with pd.option_context('display.max_colwidth', 800):
-        df.to_csv(f"src/data/{str(today.date())}-{str(today.hour)}-tweets.csv",columns=df.columns,index=False)
+        df.to_excel(f"src/data/{str(today.date())}-{str(today.hour)}-{str(today.minute)}-tweets.xlsx",columns=df.columns,index=False,encoding="utf-8")
 
 
 

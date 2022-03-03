@@ -38,9 +38,13 @@ class HashTweetManager(TweetManager):
             response = requests.get(self.url, headers=self.auth)
             assert response.status_code == 200
         except AssertionError:
-            time.sleep(15*60)
+            print('Error!')
+            # time.sleep(15*60)
 
             
+        if response.json()['meta']['result_count'] == 0:
+            return None
+        
         
         df = pd.json_normalize(response.json()['data'])
         if only_ids:
@@ -88,6 +92,7 @@ class AccountTweetManager(TweetManager):
         self.url = self.query.url_builder_by_account_name(self.account_name,count)
         response = requests.get(self.url, headers=self.auth)
         assert response.status_code == 200
+        
         df = pd.json_normalize(response.json()['data'])
         if only_ids:
             df = df[['id']]

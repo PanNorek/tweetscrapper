@@ -25,3 +25,7 @@ Sample photo: ![Screenshot1](/images/Screenshot1.png)
 Sample csv file contents: ![Screenshot2](/images/Screenshot3.png)
 
 
+# Updating
+
+[x] TrendLocator class is looking for top twitter trending topics in country you choose.
+[ ] App could be controlled by command-line arguments passed to the script.
