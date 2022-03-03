@@ -21,13 +21,15 @@ You can paste your keys in the <code>your_api_keys_sample.json</code> file and c
 6. Run the application using <code>python3 main.py </code>
 
 You should see the tweets ids running in the console.
-Sample photo: ![Screenshot1](/images/Screenshot1.png)
+Sample photo: ![Screenshot4](/images/Screenshot1.png)
 
 Sample csv file contents: ![Screenshot2](/images/Screenshot3.png)
 
 
-# Updating
+# Updates
 
-[x] TrendLocator class is looking for top twitter trending topics in country you choose.
-[ ] App could download tweets every n minutes. 
-[ ] App could be controlled by manipulating config.json file
+- [x] TrendLocator class is looking for top twitter trending topics in country you choose.
+- [x] App could download tweets every n(15) minutes. 
+- [x] App could be controlled by manipulating config.json file
+- [ ] Upgrading api requests to be more stable
+- [ ] Creating DataCollector class to store tweets in one csv file

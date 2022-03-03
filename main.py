@@ -1,8 +1,8 @@
 from src.app import Application
 from src.TrendLocator import TrendLocator
 import pandas as pd
-import sys, json
-import datetime
+import sys, json, re
+import datetime,time
 
 #future implementation
 args = sys.argv[1:]
@@ -16,8 +16,11 @@ def main():
 
     # This object is storing top hashtags from the given country 
     trends = TrendLocator(country=config["country"], top_count=config["top_hashtag_count"]).get_trends()
-
+   
+    print(trends)
     
+
+
     # Place where you can specifiy hashtags or account names to search for
     # max_count - number of tweets to be returned per each hashtag/acc name (to be implemented better)
     ap = Application(max_count=config["tweets_per_hashtag"], hashtags=trends, accounts=['NEXTA', 'YourAnonNews'])
@@ -39,8 +42,14 @@ def main():
         df.to_csv(f"src/data/{str(today.date())}-{str(today.hour)}-{str(today.minute)}-tweets.csv",columns=df.columns,index=False,encoding="utf-8")
 
 
-
+def main2():
+    while True:
+        main()
+        for i in range(15*60,0,-1):
+            print("Sleeping for " + str(i) + " seconds")
+            print(f"{i}", end="\r", flush=True)
+            time.sleep(1)
 
 
 if __name__ == '__main__':
-    main()
+    main2()

@@ -25,6 +25,7 @@ class TrendLocator:
         soup = BeautifulSoup(response.content, "lxml")
         trends = [soup.find("a", id=f"hashtags-{i}").text for i in range(1, self.top_count+1)]
         trends = [re.sub(r'#', '', trend) for trend in trends]
+        trends = [re.sub(r'\s+', '%20', trend) for trend in trends]
 
         
         return trends

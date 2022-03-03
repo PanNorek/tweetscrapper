@@ -18,7 +18,7 @@ class HashTweetManager(TweetManager):
         super().__init__()
         self.filename = filename
         
-        
+       
     def get_tweets_dataframe(self,hashtag:str,count:int,only_ids=False) -> pd.DataFrame:
         '''Function that returns a dataframe with tweets from hashtag
             Need update because of api limits.
@@ -37,7 +37,7 @@ class HashTweetManager(TweetManager):
             
             response = requests.get(self.url, headers=self.auth)
             assert response.status_code == 200
-        except AssertionError:
+        except:
             print('Error for hashtag {}!' .format(self.hashtag))
             return None
             # time.sleep(15*60)
@@ -48,8 +48,11 @@ class HashTweetManager(TweetManager):
         #         return None
         # except:
         #     return None
-        
-        df = pd.json_normalize(response.json()['data'])
+        try:
+            df = pd.json_normalize(response.json()['data'])
+        except:
+            print('Error for hashtag {}!' .format(self.hashtag))
+            return None
         if only_ids:
             df = df[['id']]
         return df

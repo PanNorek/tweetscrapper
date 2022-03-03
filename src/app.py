@@ -12,7 +12,7 @@ class Application(TweetManager):
     cummulated_df: pd.DataFrame
 
 
-    def __init__(self, max_count: int, hashtags: list, accounts: list)->None:
+    def __init__(self, max_count: int, hashtags: list, accounts: list = None)->None:
         super().__init__()
         self.hash_manager = HashTweetManager()
         self.account_manager = AccountTweetManager()
