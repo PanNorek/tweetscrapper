@@ -38,13 +38,16 @@ class HashTweetManager(TweetManager):
             response = requests.get(self.url, headers=self.auth)
             assert response.status_code == 200
         except AssertionError:
-            print('Error!')
+            print('Error for hashtag {}!' .format(self.hashtag))
+            return None
             # time.sleep(15*60)
 
-            
-        if response.json()['meta']['result_count'] == 0:
-            return None
-        
+        # print(response.json())
+        # try:
+        #     if response.json()['meta']['result_count'] == 0:
+        #         return None
+        # except:
+        #     return None
         
         df = pd.json_normalize(response.json()['data'])
         if only_ids:

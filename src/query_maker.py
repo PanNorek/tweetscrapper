@@ -13,7 +13,7 @@ class QueryMaker:
     max_results: int
     
 
-    def __init__(self, max_results =10 ) -> None:
+    def __init__(self, max_results:int =10 ) -> None:
         self.max_results = max_results
 
     def set_account_name(self, account_name: str) -> None:

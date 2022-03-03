@@ -1,0 +1,9 @@
+{   
+    "country":"Poland",
+    "top_hashtag_count":10,
+    "tweets_per_hashtag":10,
+    "use_hashtags":true,
+    "use_accounts":false,
+    "timer_in_mins": 15
+    
+}
