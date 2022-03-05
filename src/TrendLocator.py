@@ -1,5 +1,5 @@
 import requests
-import re
+import re, random
 from bs4 import BeautifulSoup
 class TrendLocator:
     """
@@ -23,9 +23,12 @@ class TrendLocator:
         response = requests.get(url)
 
         soup = BeautifulSoup(response.content, "lxml")
-        trends = [soup.find("a", id=f"hashtags-{i}").text for i in range(1, self.top_count+1)]
+        trends = [soup.find("a", id=f"hashtags-{i}").text for i in range(1, self.top_count+25)]
+        print(trends)
         trends = [re.sub(r'#', '', trend) for trend in trends]
-        trends = [re.sub(r'\s+', '%20', trend) for trend in trends]
+        trends = [re.sub(r'%', '%25', trend) for trend in trends]
+        trends = [re.sub(r'\s', '%20', trend) for trend in trends]
+        trends = random.sample(trends, k=self.top_count)
 
         
         return trends

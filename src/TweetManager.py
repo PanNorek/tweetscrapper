@@ -14,9 +14,10 @@ class TweetManager:
 class HashTweetManager(TweetManager):
     '''Class for getting tweets by hashtag'''
 
-    def __init__(self, filename='tweets.json')->None:
+    def __init__(self,lang, filename='tweets.json')->None:
         super().__init__()
         self.filename = filename
+        
         
        
     def get_tweets_dataframe(self,hashtag:str,count:int,only_ids=False) -> pd.DataFrame:
@@ -39,7 +40,14 @@ class HashTweetManager(TweetManager):
             assert response.status_code == 200
         except:
             print('Error for hashtag {}!' .format(self.hashtag))
-            return None
+            self.url = self.query.url_builder_for_uncommon_tags(self.hashtag,count)
+            try:
+                response = requests.get(self.url, headers=self.auth)
+                print('Error for hashtag {} repared - new request built!'.format(self.hashtag))
+                assert response.status_code == 200
+            except:
+                print('Error confirmed -> {}!' .format(self.hashtag))
+                return None
             # time.sleep(15*60)
 
         # print(response.json())

@@ -1,15 +1,18 @@
 from src.app import Application
 from src.TrendLocator import TrendLocator
 import pandas as pd
+import numpy as np
 import sys, json, re
 import datetime,time
 
 #future implementation
 args = sys.argv[1:]
-
+config = json.load(open('config.json'))
+pd.set_option('display.max_colwidth', None)
+np.set_printoptions(threshold=sys.maxsize)
 def main():
 
-    config = json.load(open('config.json'))
+    
 
 
     today = datetime.datetime.today()
@@ -17,7 +20,7 @@ def main():
     # This object is storing top hashtags from the given country 
     trends = TrendLocator(country=config["country"], top_count=config["top_hashtag_count"]).get_trends()
    
-    print(trends)
+    
     
 
 
@@ -38,15 +41,16 @@ def main():
     print("Saving to " + f"/src/data/{str(today.date())}-{str(today.hour)}-tweets.csv" )
 
 
-    with pd.option_context('display.max_colwidth', 800):
-        df.to_csv(f"src/data/{str(today.date())}-{str(today.hour)}-{str(today.minute)}-tweets.csv",columns=df.columns,index=False,encoding="utf-8")
+    with pd.option_context('display.max_colwidth', 1000):
+        df.to_csv(f"src/data/{str(today.date())}-{str(today.hour)}-{str(today.minute)}-tweets.csv",columns=df.columns,index=False,encoding="utf-8-sig")
 
 
 def main2():
     while True:
         main()
-        for i in range(15*60,0,-1):
-            print("Sleeping for " + str(i) + " seconds")
+        print("Sleeping for " + str(15*60) + " seconds")
+        for i in range(config["timer_in_mins"]*60,0,-1):
+            
             print(f"{i}", end="\r", flush=True)
             time.sleep(1)
 

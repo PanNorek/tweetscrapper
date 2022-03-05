@@ -13,9 +13,9 @@ class QueryMaker:
     max_results: int
     
 
-    def __init__(self, max_results:int =10 ) -> None:
+    def __init__(self, max_results:int =10,lang:str='pl' ) -> None:
         self.max_results = max_results
-
+        self.lang = lang
     def set_account_name(self, account_name: str) -> None:
         self.account_name = account_name
 
@@ -34,7 +34,7 @@ class QueryMaker:
         created_at, text, author_id, id,
         '''
         self.max_results = max_results
-        url = self.base_search_url + '%23' + hashtag +"%20lang:pl" +f"&expansions=author_id&tweet.fields=created_at&max_results={max_results}"   
+        url = self.base_search_url + '%23' + hashtag +f"%20lang:{self.lang}" +f"&expansions=author_id&tweet.fields=created_at&max_results={max_results}"   
         return url
         # url = f'https://api.twitter.com/2/tweets/search/recent?query={hash}wojna&expansions=author_id&tweet.fields=created_at&max_results=10'
 
@@ -98,3 +98,14 @@ class QueryMaker:
         url = self.advanced_search_url + f"id={tweet_ids}&tweet.fields=created_at&expansions=author_id"
         return url
   
+    def url_builder_for_uncommon_tags(self,hashtag:str,max_results=10) -> str:
+        ''' Function that returns an url to get tweets by tag
+        request to the Twitter API returns a json file with these tweets attributes:
+        Args:
+        tag (str): tag.
+        Returns:
+        url (str): url to get tweets by tag.
+        '''
+        self.max_results = max_results
+        url = self.base_search_url + '%23\"' + hashtag +f"\"%20lang:{self.lang}" +f"&expansions=author_id&tweet.fields=created_at&max_results={max_results}"   
+        return url

@@ -12,14 +12,15 @@ class Application(TweetManager):
     cummulated_df: pd.DataFrame
 
 
-    def __init__(self, max_count: int, hashtags: list, accounts: list = None)->None:
+    def __init__(self, max_count: int, hashtags: list, accounts: list = None,lang:str = 'pl')->None:
         super().__init__()
-        self.hash_manager = HashTweetManager()
-        self.account_manager = AccountTweetManager()
-        self.index_manager = IndexTweetManager()
+        self.hash_manager = HashTweetManager(lang)
+        self.account_manager = AccountTweetManager(lang)
+        self.index_manager = IndexTweetManager(lang)
         self.max_count = max_count
         self.hashtags = hashtags
         self.accounts = accounts
+        
 
     def id_getter(self,use_hashtags=True,use_accounts=False)->pd.DataFrame:
         """
